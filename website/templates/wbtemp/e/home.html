@@ -1,0 +1,24 @@
+{% extends user.is_authenticated|yesno:'base.html,base_pub.html' %}
+{% load static %}
+{% block content %}
+
+{% include "wbtemp/anonymous/_home.html" %}
+
+
+
+{% endblock %}
+{% block menu %}
+{% include "wbtemp/teachers/_menu.html" %}
+{% if user.is_teacher %}
+{% include "wbtemp/teachers/_menu.html" %}
+{% endif %}
+
+{% if user.is_student %}
+{% include "wbtemp/students/_menu.html" %}
+{% endif %}
+
+{% if user.is_admin %}
+{% include "wbtemp/admins/_menu.html" %}
+{% endif %}
+{% endblock %}
+

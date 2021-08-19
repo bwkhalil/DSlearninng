@@ -1,0 +1,269 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Gestion clients</title>
+    <link href="assets/form-validation.css" rel="stylesheet">
+    <script src="assets/Chart.bundle.min.js"></script>
+    <script>
+      $("#decnx").click(function(e){
+        e.preventDefault();
+        localStorage.removeItem("id")
+        location.replace("login.html")
+      })
+    </script>
+    <style>
+      .modal .modal-dialog {
+            max-width: 400px;
+        }
+        .modal .modal-header, .modal .modal-body, .modal .modal-footer {
+            padding: 20px 30px;
+        }
+        .modal .modal-content {
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        .modal .modal-footer {
+            background: #ecf0f1;
+            border-radius: 0 0 3px 3px;
+        }
+        .modal .modal-title {
+            display: inline-block;
+        }
+        .modal .form-control {
+            border-radius: 2px;
+            box-shadow: none;
+            border-color: #dddddd;
+        }
+        .modal textarea.form-control {
+            resize: vertical;
+        }
+        .modal .btn {
+            border-radius: 2px;
+            min-width: 100px;
+        }	
+        .modal form label {
+            font-weight: normal;
+        }	
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Gestion de la relation client</a>     
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+        <a  id ="decnx" class="nav-link" href="#">Déconnexion</a>
+         
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+             
+              <li class="nav-item">
+                <a class="nav-link" href="affaires.html">
+                  <span><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></span>
+                  Affaires
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="taches.html">
+                  <span><i class="fa fa-tasks fa-2x" aria-hidden="true"></i></span>
+                  Taches
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Agent.html">
+                  <span><i class="fa fa-user fa-2x" aria-hidden="true"></i></span>
+                  Agents
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">
+                  <span><i class="fa fa-address-book fa-2x" aria-hidden="true"></i></span>
+                   Contacts
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="clients.html">
+                  <span><i class="fa fa-users fa-2x" aria-hidden="true"></i></span>
+                  Clients
+                </a>
+              </li>
+             
+              <li class="nav-item">
+                <a class="nav-link" href="events.html">
+                  <span><i class="fa fa-calendar fa-2x" aria-hidden="true"></i></span>
+                  Evènements
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Rapports</span>
+              <a class="d-flex align-items-center text-muted" href="#">                
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="rap1.html">
+                  <span data-feather="activity"></span>
+                  Réalisé / Objectif
+                </a>
+              </li>
+              
+            </ul>
+          </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Statistiques et rapports</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button  class="btn btn-sm btn-outline-secondary"  id="new_btn"><i class="fa fa-address-book"></i> Créer</button>                
+              </div>
+              <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary"><i class="fa fa-file-excel-o"></i>  Exporter </button>
+              </div>
+              
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                Actions
+              </button>
+            </div>
+          </div> 
+          <h2>Graphique 1</h2>
+          <form>
+            <div class="row">
+              <div class="col-md-3 mb-1">
+                <div class="form-group">
+                  <label>Année</label>               
+                  <input type="number" class="form-control" id="annee" name="annee" min="2000" required>
+                </div>
+                </div>
+                <div class="col-md-3 mb-1">
+                  <div class="form-group">
+                    <label>Mois</label>               
+                    <select id="mois" class="form-control">
+                      <option value="1" >Janvier</option>
+                      <option value="2" >Février</option>
+                      <option value="3" >Mars</option>
+                      <option value="4" >Avril</option>
+                      <option value="5" >Mai</option>
+                      <option value="6" >Juin</option>
+                      <option value="7" >Juillet</option>
+                      <option value="8" >Aout</option>
+                      <option value="9" >Septembre</option>
+                      <option value="10" >Octobre</option>
+                      <option value="11" >Novembre</option>
+                      <option value="12" >Decembre</option>
+                    </select>
+                  </div>
+                  </div>
+                  <div  class="col-md-3 mb-1">
+                    <div class="form-group">
+                      <label>Objectif</label>
+                      <input type="number" class="form-control" id="objectif" name="objectif" required>
+                    </div>
+                  </div>
+                 
+                
+            </div>
+            <div class="row">
+              <div  class="col-md-3 mb-1">
+
+                  
+                      
+                <input type="submit" class="btn btn-primary" value="Générer" id="generate">
+              
+            </div>
+            </div>
+          </form>
+          <br>
+          <canvas id="myChart" width="400" height="100"></canvas>
+          
+        </main>
+        
+      </div>
+</div>
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+ 
+<script>
+  $(document).ready(function(){
+    $("#generate").click(function(e){
+      e.preventDefault();
+      var annee=$("#annee").val();
+      var mois=$("#mois").val();
+      var obj=$("#objectif").val();
+console.log('http://localhost/Soumaya/API/providers/Affaire/objectif.php?s='+annee+","+mois+","+localStorage.getItem("id"))
+      $.ajax({
+         url:'http://localhost/Soumaya/API/providers/Affaire/objectif.php?s='+annee+","+mois+","+localStorage.getItem("id"),
+         type:'get',
+         dataType:'json',  
+         contentType:'application/json; charset=utf-8',
+         success:function(data){
+           var data2=[]
+           data2.push(parseInt(data[0]["total"]))
+           data2.push(parseInt(obj))
+          var ctx = $("#myChart");
+          var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ["Réalisé", "Objectif"],
+          datasets: [{
+              label: "Chiffre d'affaire",
+              backgroundColor: "green",
+              data: data2
+              
+          }
+          
+          
+          
+          ]
+      }, options: {
+        scales: {
+            xAxes: [{
+                stacked: true
+            }],
+            yAxes: [{
+                stacked: true
+            }]
+        }
+      }
+          })
+          
+
+         }
+
+    })
+
+  })
+  })
+  
+  /* var ctx = document.getElementById("myChart");
+  
+  }); */
+</script>	
+			
+			
+	
+
+
+  </body>
+
+</html>

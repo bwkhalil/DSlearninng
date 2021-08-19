@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>DS Learning</title>
+
+
+  <link href="{%  static  'css/bootstrap.min.css'  %}" rel="stylesheet">
+  <link href="{% static 'css/animate.min.css' %}" rel="stylesheet"> 
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link id="css-preset" href="{% static 'css/presets/preset1.css' %}" rel="stylesheet">
+  <link href="{% static 'css/responsive.css'%}" rel="stylesheet">
+
+  <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+  <![endif]-->
+  
+  
+  <style>
+    .dropdown-menu>li>a {
+    padding: 6px 40px;
+  }
+     .navbar .dropdown-menu {
+    background-color: #028fcc;
+  }
+  .navbar-nav > .active > a { 
+      background-color: #028fcc ; 
+  }
+  
+  /* and this styles the dropdwon trigger link, when open */
+  .navbar .dropdown.show a { 
+    background-color: #028fcc;
+  }
+    </style>
+    
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+</head><!--/head-->
+
+<body>
+
+  <!--.preloader-->
+  <div class="preloader"> <i class="fa fa-circle-o-notch fa-spin"></i></div>
+  <!--/.preloader-->
+
+  <header id="home">
+    
+    <div class="main-nav">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <h1><img class="img-responsive" src="{%  static 'images/log1.png' %}" alt="log" width="210" height="210"></h1>
+         
+          </a>                    
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">                 
+            <li ><a href="/">Home</a></li>
+            <li class="scroll active"><a href="/about">About Us</a></li> 
+            <li id="tr"  style="background-color:#028fcc;" ><a style="background-color:#028fcc;" id="trl" href="#"  data-toggle="dropdown">Training <b class="caret"></b></a>
+              <ul  class="dropdown-menu"  style="background-color:#028fcc;">
+                <li  ><a href="">Artificial Intelligence</a></li>
+                <li  ><a href="">Business Intelligence</a></li>
+                
+                <li  ><a href="">Machine Learning</a></li>
+                <li  ><a href="">Deep Learning</a></li>
+                <li  ><a href="">Big Data</a></li>
+                <li ><a href="">Python</a></li>
+              </ul>
+            </li>
+         
+                               
+            <li ><a href="/inscrit">Inscription</a></li>
+            <li ><a href="/accounts/login">Connexion</a></li>
+            <li ><a href="/contact">Contact</a></li>       
+          </ul>
+        </div>
+      </div>
+    </div><!--/#main-nav-->
+  </header><!--/#home-->
+
+
+
+  <section id="about-us" class="parallax">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="about-info wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInUp;">
+            <br> <br> <br><br><br> <br>
+            <h2>About us</h2>
+            <p > 
+                Ds Learning Tunisia is a scalable website for online education and training.
+                our site allows you to acquire several fundamental skills in data analysis.
+                Every ds learning course is taught by experienced trainers, so you can learn something new anytime, anywhere. Hundreds of free lessons in the form of videos and quiz</p></div>
+        </div>
+        <div class="col-sm-6">
+          <div class="our-skills wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+            <div class="single-skill wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+              <p class="lead">Machine learning</p>
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="95" style="width: 95%;">95%</div>
+              </div>
+            </div>
+            <div class="single-skill wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="400ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 400ms; animation-name: fadeInDown;">
+              <p class="lead">Deep learning
+            </p>
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="75" style="width: 75%;">75%</div>
+              </div>
+            </div>
+            <div class="single-skill wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 500ms; animation-name: fadeInDown;">
+              <p class="lead">Programming Python</p>
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="60" style="width: 60%;">60%</div>
+              </div>
+            </div>
+            <div class="single-skill wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="600ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+              <p class="lead">Business Intelligence</p>
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="85" style="width: 85%;">85%</div>
+              </div>
+            </div>
+            <div class="single-skill wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="600ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                <p class="lead">Big Data</p>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="70" style="width: 70%;">70%</div>
+                </div>
+              </div>
+              <div class="single-skill wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="600ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                <p class="lead">Artificial Intelligence</p>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="50" style="width: 50%;">50%</div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+
+
+
+  <footer id="footer">
+    
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row">
+            <div class="social-icons">
+                <ul>
+                  <li><a class="envelope" href="#"><i class="fa fa-envelope"></i></a></li>
+                  <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li> 
+                  <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                  <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                  <li><a class="tumblr" href="#"><i class="fa fa-tumblr-square"></i></a></li>
+                </ul>
+              </div>
+          
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="{%  static 'js/jquery.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src=" http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script type="text/javascript" src="{%  static 'js/jquery.inview.min.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/wow.min.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/mousescroll.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/smoothscroll.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/jquery.countTo.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/lightbox.min.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/main.js' %}"></script>
+
+  </body>
+  </html>

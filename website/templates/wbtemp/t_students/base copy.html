@@ -1,0 +1,196 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>DS Learning</title>
+
+
+  <link href="{%  static  'css/bootstrap.min.css'  %}" rel="stylesheet">
+  <link href="{% static 'css/animate.min.css' %}" rel="stylesheet"> 
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link id="css-preset" href="{% static 'css/presets/preset1.css' %}" rel="stylesheet">
+  <link href="{% static 'css/responsive.css'%}" rel="stylesheet">
+
+  <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+  <![endif]-->
+  
+   
+  <style>
+    .dropdown-menu>li>a {
+    padding: 6px 40px;
+  }
+     .navbar .dropdown-menu {
+    background-color: #028fcc;
+  }
+  .navbar-nav > .active > a { 
+      background-color: #028fcc ; 
+  }
+  
+  /* and this styles the dropdwon trigger link, when open */
+  .navbar .dropdown.show a { 
+    background-color: #028fcc;
+  }
+/* #cc {
+  position:absolute;
+  top:50%;
+   left:50%;
+   width:300px; 
+   height:200px;
+   margin-left:-150px; 
+   margin-top:-100px; 
+  
+  } */
+
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+</head><!--/head-->
+
+<body>
+
+  <!--.preloader-->
+  <div class="preloader"> <i class="fa fa-circle-o-notch fa-spin"></i></div>
+  <!--/.preloader-->
+
+  <header id="home">
+    
+    <div class="main-nav">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <h1><img class="img-responsive" src="{%  static './images/log1.png' %}" alt="log" width="210" height="210"></h1>
+          </a>                    
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">                 
+            
+            <li class="scroll "><a href="">All Courses</a></li>          
+            <li class="scroll "><a href="">My Courses</a></li>
+            <li class="scroll"><a href="">Logout</a></li>
+                 
+          </ul>
+        </div>
+      </div>
+    </div><!--/#main-nav-->
+  </header><!--/#home-->
+
+
+    {% block content %}
+
+      <div class="container">
+        <div class="card">
+        
+            <div class="card-body">
+            
+               <div class="row">
+                
+            <div class="col-6">
+              <h3 class="mb-3"> {{cat.name}} </h3>
+            </div>
+            
+            <!--<div class="col-3 text-left" style="text-align: right;">
+              <a class="btn btn-primary mb-3 mr-1" href="#home-slider1" role="button" data-slide="prev">
+                <i class="fa fa-arrow-left"></i>
+              </a>
+              <a class="btn btn-primary mb-3 " href="#home-slider1" role="button" data-slide="next">
+                <i class="fa fa-arrow-right"></i>
+              </a>
+            </div>-->
+            <div class="col-12">
+              <div id="home-slider1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                 
+                  <div class="item active">
+                   
+                    <div class="row">
+                      {% for cours in courses %}
+                      <div class="col-md-4 mb-3">
+    
+                        <div class="card">
+                          <img class="img-fluid" alt="100%x280" src="{% static 'images/slider/1.jpg' %}" width="280"
+                            height="180"> <p class="card-text">{{cours.description}}</p>
+                          <div class="card-block">
+                            <h4 class="card-title">{{cours.name}}</h4>
+                            
+                            
+                              <button class="btn btn-default swap">
+                                <span class="glyphicon glyphicon-heart-empty"></span>
+                            </button>
+                            <a href="Chapter/{{cours.id}}" class="btn btn-primary">View chapters</a>
+                          </div>
+    
+                        </div>
+                      </div>
+                      {% empty %}
+                      <p>no courses</p>
+                     
+                  </div>
+    
+    
+                  </div>
+                </div>
+    
+               <!---- <a class="left-control" href="#home-slider1" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+                <a class="right-control" href="#home-slider1" data-slide="next"><i class="fa fa-angle-right"></i></a>-->
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+            </div>
+          </div>
+      </div>
+    {% endblock %}   
+  
+
+
+
+
+  <footer id="footer">
+    
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row">
+            <div class="social-icons">
+                <ul>
+                  <li><a class="envelope" href="#"><i class="fa fa-envelope"></i></a></li>
+                  <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li> 
+                  <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                  <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                  <li><a class="tumblr" href="#"><i class="fa fa-tumblr-square"></i></a></li>
+                </ul>
+              </div>
+          
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="{%  static 'js/jquery.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src=" http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script type="text/javascript" src="{%  static 'js/jquery.inview.min.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/wow.min.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/mousescroll.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/smoothscroll.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/jquery.countTo.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/lightbox.min.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/main.js' %}"></script>
+
+  </body>
+  </html>

@@ -1,0 +1,416 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>DS Learning</title>
+
+  <link href="{%  static  'css/bootstrap.min.css'  %}" rel="stylesheet">
+  <link href="{% static 'css/animate.min.css' %}" rel="stylesheet"> 
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link id="css-preset" href="{% static 'css/presets/preset1.css' %}" rel="stylesheet">
+  <link href="{% static 'css/responsive.css'%}" rel="stylesheet">
+
+  <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+  <![endif]-->
+  <style>
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+body {
+    background: #ddd;
+    background: linear-gradient(#ddd, #e8e8e8);
+    font-family: 'Open Sans', sans-serif;
+    height: 100vh;
+    margin:0;
+}
+
+.thumb {
+    width: 400px;
+    height: 300px;
+    margin: 70px auto;
+    perspective: 1000px;
+}
+
+.thumb a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+		url("{%  static 'images/ML.jpg' %}");
+    background-size: 0, cover;
+    transform-style: preserve-3d;
+    transition: all 0.5s;
+}
+
+.thumb:hover a {
+    transform: rotateX(80deg);
+    transform-origin: bottom;
+}
+.thumb a:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 36px;
+    background: inherit;
+    background-size: cover, cover;
+    background-position: bottom;
+    transform: rotateX(90deg);
+    transform-origin: bottom;
+}
+.thumb a span {
+    color: white;
+    text-transform: uppercase;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    font: bold 12px/36px "Open Sans";
+    text-align: center;
+    transform: rotateX(-89.99deg);
+    transform-origin: top;
+    z-index: 1;
+}
+.thumb a:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 100px 50px rgba(0, 0, 0, 0.5);
+    transition: all 0.5s;
+    opacity: 0.15;
+    transform: rotateX(95deg) translateZ(-80px) scale(0.75);
+    transform-origin: bottom;
+}
+
+.thumb:hover a:before {
+    opacity: 1;
+    box-shadow: 0 0 25px 25px rgba(0, 0, 0, 0.5);
+    transform: rotateX(0) translateZ(-60px) scale(0.85);
+}
+
+
+
+    
+
+
+
+
+
+  .dropdown-menu>li>a {
+  padding: 6px 30px;
+}
+   .navbar .dropdown-menu {
+  background-color: #028fcc;
+}
+.navbar-nav > .active > a { 
+    background-color: #028fcc ; 
+}
+
+/* and this styles the dropdwon trigger link, when open */
+.navbar .dropdown.show a { 
+  background-color: #028fcc;
+}
+.img_ico {
+  border-radius: 50%;
+}
+.wrapper {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 100px 100px 100px;
+    background-color: #fff;
+    color: #444;
+  }
+
+  .box {
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 150%;
+
+  }
+  .card {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color:#FFF;
+}
+
+.card:hover {
+  box-shadow: 0 5px 5px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.card > .card-inner {
+  padding:10px;
+}
+.card .header h2, h3 {
+  margin-bottom: 0px;
+  margin-top:0px;
+}
+.card .header {
+  margin-bottom:5px;
+}
+.card img{
+  width:100%;
+}
+
+  .a {
+    grid-area: 1 / 2 / 2 / 3;
+  }
+  .b {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+  .c {
+    grid-area: 2 / 3 / 3 / 4;
+  }
+  .d {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+  .e {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+  .f {
+    grid-area: 1 / 3 / 2 / 4;
+  }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+
+$(".slidingDiv").hide();
+
+
+$('.img_ico').click(function() {
+      
+     //$(".slidingDiv").slideToggle();
+     console.log("----------------------------------------------")
+     var isvisible = $(this).next('.slidingDiv').is(':visible');
+  
+     if ( isvisible ) {
+       $(this).next('.slidingDiv').hide();
+     } else{
+       $(this).next('.slidingDiv').show(); 
+     }
+});
+
+});
+    </script>
+</head><!--/head-->
+
+<body>
+
+  <!--.preloader-->
+  <div class="preloader"> <i class="fa fa-circle-o-notch fa-spin"></i></div>
+  <!--/.preloader-->
+
+  <header id="home">
+    
+    <div class="main-nav">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <h1><img class="img-responsive" src="{%  static 'images/log1.png' %}" alt="log" width="210" height="210"></h1>
+          </a>                    
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">                 
+            <li class="scroll active"><a href="/">Home</a></li>
+            <li ><a href="/about">About Us</a></li> 
+            <li id="tr"  style="background-color:#028fcc;" ><a style="background-color:#028fcc;" id="trl" href="#"  data-toggle="dropdown">Training <b class="caret"></b></a>
+              <ul  class="dropdown-menu"  style="background-color:#028fcc;">
+                <li  ><a href="">Artificial Intelligence</a></li>
+                <li  ><a href="">Business Intelligence</a></li>
+                
+                <li  ><a href="">Machine Learning</a></li>
+                <li  ><a href="">Deep Learning</a></li>
+                <li  ><a href="">Big Data</a></li>
+                <li ><a href="">Python</a></li>
+              </ul>
+            </li>                
+            <li ><a href="/inscrit">Inscription</a></li>
+            <li ><a href="/accounts/login">Connexion</a></li>
+            <li><a href="/contact">Contact</a></li>       
+          </ul>
+        </div>
+      </div>
+    </div><!--/#main-nav-->
+  </header><!--/#home-->
+
+<section id="services">
+  <div class="container">
+    <div class="heading wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+      <div class="row">
+        <div class="text-center col-sm-8 col-sm-offset-2">
+          <h2>Our Training</h2>
+          <p>Ds Learning Tunisia is a scalable website for online education and training.</p>
+        </div>
+      </div> 
+    </div>
+    <div class="text-center our-services">
+      <div class="row">
+        <div class="col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+          <div id="bi">
+            <img src="{%  static 'images/BI.png' %}" width="200px" height="200px" class="img_ico" />
+            <div class="slidingDiv">
+              <div class="wrapper">
+                <div class="card">
+                  <div class="image">
+                    <img src="http://loremflickr.com/320/150?random=4" />
+                  </div>
+                  <div class="card-inner">
+                    <div class="header">
+                      <h2>Title</h2>
+                      <h3>Sub-Head</h2>
+                  </div>
+                  <div class="content">
+                    <p>Content area</p>
+                  </div>
+                    </div>
+                </div>
+                <div class="card">
+                  <div class="image">
+                    <img src="http://loremflickr.com/320/150?random=4" />
+                  </div>
+                  <div class="card-inner">
+                    <div class="header">
+                      <h2>Title</h2>
+                      <h3>Sub-Head</h2>
+                  </div>
+                  <div class="content">
+                    <p>Content area</p>
+                  </div>
+                    </div>
+                </div>
+                
+              </div>
+          </div>
+        </div>
+          <div class="service-info">
+            <h3>Business Intelligence</h3>
+            <p>Business Intelligence refers to all the technologies that allow companies to analyze data for the benefit of their decision-making.</p>
+          </div>
+         
+        </div>
+        <div class="col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="450ms">
+          <div id="bi">
+            <img src="{%  static 'images/ML.jpg' %}" width="200px" height="200px" class="img_ico" />
+        </div>
+          <div class="service-info">
+            <h3>Machine Learning</h3>
+            <p>Machine Learning is able to reproduce behavior thanks to algorithms, themselves fed by a large amount of data</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="650ms">
+          <div id="bi">
+            <img src="{%  static 'images/DL.jpg' %}" width="80px" height="80px" />
+        </div>
+          <div class="service-info">
+            <h3>Deep Learning</h3>
+            <p>Deep Learning is one of the main technologies of machine learning and artificial intelligence.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="550ms">
+          <div id="bi">
+            <img src="{%  static 'images/big-data.png' %}" width="100px" height="80px" />
+        </div>
+          <div class="service-info">
+            <h3>Big Data</h3>
+            <p>
+              Big Data is presented as a solution designed to allow everyone to access giant databases in real time</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="850ms">
+          <div id="bi">
+            <img src="{%  static 'images/Python.png' %}" width="100px" height="80px" />
+        </div>
+          <div class="service-info">
+            <h3>Python</h3>
+            <p>Python is an interpreted, multi-paradigm, cross-platform programming language. It promotes structured, functional and object-oriented imperative programming.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="750ms">
+          <div id="bi">
+            <img src="{%  static 'images/IA.png' %}" width="80px" height="80px" />
+        </div>
+          <div class="service-info">
+            <h3>Artificial Intelligence</h3>
+            <p>Artificial intelligence is the set of theories and techniques implemented to create machines capable of simulating intelligence</p>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</section><!--/#services-->
+
+  
+    <footer id="footer">
+    <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+      <div class="container text-center">
+        <div class="footer-logo">
+          <a href="/"><img class="img-responsive" src="{%  static 'images/log1.png' %}" alt="log" width="230" height="230"></a>
+        </div>
+        <div class="social-icons">
+          <ul>
+            <li><a class="envelope" href="#"><i class="fa fa-envelope"></i></a></li>
+            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li> 
+            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+            <li><a class="tumblr" href="#"><i class="fa fa-tumblr-square"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            
+          </div>
+          <div class="col-sm-6">
+            <p class="pull-right">Designed by <a href="">DS Learning</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="{%  static 'js/jquery.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src=" http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script type="text/javascript" src="{%  static 'js/jquery.inview.min.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/wow.min.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/mousescroll.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/smoothscroll.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/jquery.countTo.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/lightbox.min.js' %}"></script>
+  <script type="text/javascript" src="{%  static 'js/main.js' %}"></script>
+
+  </body>
+  </html>

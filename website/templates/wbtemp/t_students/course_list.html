@@ -1,0 +1,59 @@
+{% extends 'wbtemp/t_students/base.html' %}
+{% load static %}
+   {% block content %}
+   <div class="container">
+
+  {% for c in cat %}
+   <div class="card">
+       <div class="card-header" >
+        <h3 class="mb-3"> {{c.category}} </h3>
+       </div>
+    <div class="card-body">
+      <div class="row">
+    <div class="col-12">
+      <div id="home-slider1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+         
+          <div class="item active">
+           
+            <div class="row">
+              {% for cours in c.courses %}
+              <div class="col-md-4 mb-3">
+
+                <div class="card">
+                  <img class="img-fluid" alt="100%x280" src="{% static 'images/slider/1.jpg' %}" width="280"
+                    height="180"> <p class="card-text">{{cours.description}}</p>
+                  <div class="card-block">
+                    <h4 class="card-title">{{cours.name}}</h4>
+                    
+                    
+                      <button class="btn btn-default swap" value="{{cours.id}}">
+                        <span class="glyphicon glyphicon-heart-empty"></span>
+                    </button>
+                    <!-- <a href="Chapter/{{cours.id}}" class="btn btn-primary">View chapters</a> -->
+                  </div>
+
+                </div>
+              </div>
+              {% endfor %}
+           
+             
+          </div>
+
+
+          </div>
+        </div>
+
+       <!---- <a class="left-control" href="#home-slider1" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+        <a class="right-control" href="#home-slider1" data-slide="next"><i class="fa fa-angle-right"></i></a>-->
+      </div>
+    </div>
+  
+  </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>No courses</p>
+  {% endfor %}
+</div>
+{% endblock %}

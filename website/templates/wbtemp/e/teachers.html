@@ -1,0 +1,7 @@
+{% if user.is_authenticated %}
+{% extends 'base.html' %}
+{% if user.is_teacher %}
+{% endif %}
+{% else %}
+{% extends 'base_pub.html' %}
+{% endif %}

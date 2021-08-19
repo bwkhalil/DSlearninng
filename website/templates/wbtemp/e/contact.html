@@ -1,0 +1,9 @@
+{% extends user.is_authenticated|yesno:'base.html,base_pub.html' %}
+{% load static %}
+
+{% block content %}
+{% if not user.is_authenticated %}
+{% include "wbtemp/anonymous/_home.html" %}
+{% endif %}
+
+{% endblock %}

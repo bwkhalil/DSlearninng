@@ -1,0 +1,536 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Gestion clients</title>
+    <link href="assets/form-validation.css" rel="stylesheet">
+    <link href='assets/packages/core/main.css' rel='stylesheet' />
+<link href='assets/packages/daygrid/main.css' rel='stylesheet' />
+<link href='assets/packages/timegrid/main.css' rel='stylesheet' />
+<link href='assets/packages-premium/timeline/main.css' rel='stylesheet' />
+<link href='assets/packages-premium/resource-timeline/main.css' rel='stylesheet' />
+<script src='assets/packages/core/main.js'></script>
+<script src='assets/packages/interaction/main.js'></script>
+<script src='assets/packages/daygrid/main.js'></script>
+<script src='assets/packages/timegrid/main.js'></script>
+<script src='assets/packages-premium/timeline/main.js'></script>
+<script src='assets/packages-premium/resource-common/main.js'></script>
+<script src='assets/packages-premium/resource-timeline/main.js'></script>
+<script src='assets/packages/core/locales/fr.js'></script>
+<script>
+  $("#decnx").click(function(e){
+    e.preventDefault();
+    localStorage.removeItem("id")
+    location.replace("login.html")
+  })
+</script>
+<script>
+    $(document).ready(function(){
+     $.ajax({
+         url:'http://localhost/Soumaya/API/providers/client/read.php',
+         type:'get',
+         dataType:'json',  
+         contentType:'application/json; charset=utf-8',
+         success:function(data){
+           var liste=JSON.stringify(data)
+           data["data"].forEach(element => {
+             $("#client_add").append(new Option(element["nom"],element["id"])) 
+             $("#client_edit").append(new Option(element["nom"],element["id"]))              
+           });
+         }
+     })
+    })
+  </script>
+  <script>
+      $(document).ready(function(){
+          $("#del_btn").click(function(e){
+          e.preventDefault();
+          var id=$("#edit_id").val()
+          var dt={id:id}
+          $.ajax({
+          url:'http://localhost/Soumaya/API/providers/Evenement/delete.php',
+          type:'post',
+          dataType:'json',
+          data:JSON.stringify(dt),
+          contentType:'application/json; charset=utf-8',
+          success:function(data){
+              if(data.hasOwnProperty("message"))
+              {
+                  alert("Evenement non supprimé")
+              }
+              else
+              {
+                  alert("Evenement est supprim&eacute avec succès")
+                  location.reload(true)
+
+              }
+          }
+          })
+      })
+      })
+  </script>
+    <script>
+        $(document).ready(function(){
+            $("#mod_btn").click(function(e){
+            e.preventDefault();
+            var id=$("#edit_id").val()
+            var obj=$("#objet_edit").val();
+              var type=$("#type_edit").val();
+              var lieu=$("#lieu_edit").val();
+              var date=$("#date_edit").val();
+              var hrd=$("#hrd_edit").val();
+              var hrf=$("#hrf_edit").val();
+              var debut=date+"T"+hrd
+              var fin=date+"T"+hrf
+              var agent_id=localStorage.getItem("id")
+              var client=$("#client_edit").val()
+              var dt= {id:id,objet:obj,type:type,lieu:lieu,date_debut:debut,date_fin:fin,agent_id:agent_id,client_id:client}
+             console.log(JSON.stringify(dt))
+            $.ajax({
+            url:'http://localhost/Soumaya/API/providers/Evenement/update.php',
+            type:'post',
+            dataType:'json',
+            data:JSON.stringify(dt),
+            contentType:'application/json; charset=utf-8',
+            success:function(data){
+                if(data.hasOwnProperty("message"))
+                {
+                    alert("Evenement non modifié")
+                }
+                else
+                {
+                    alert("Evenement est modifié succès")
+                    location.reload(true)
+  
+                }
+            }
+            })
+        })
+        })
+    </script>
+  <script>
+      $(document).ready(function(){
+          $("#add_btn").click(function(e){
+              e.preventDefault();
+              var obj=$("#objet_add").val();
+              var type=$("#type_add").val();
+              var lieu=$("#lieu_add").val();
+              var date=$("#date_add").val();
+              var hrd=$("#hrd_add").val();
+              var hrf=$("#hrf_add").val();
+          
+              var debut=date+"T"+hrd
+              var fin=date+"T"+hrf+":00"
+              var agent_id=localStorage.getItem("id")
+              var client=$("#client_add").val()
+              var dt= {objet:obj,type:type,lieu:lieu,date_debut:debut,date_fin:fin,agent_id:agent_id,client_id:client}
+              console.log(JSON.stringify(dt))
+              $.ajax({
+          url:'http://localhost/Soumaya/API/providers/Evenement/create.php',
+          type:'post',
+          dataType:'json', 
+          data:JSON.stringify(dt) ,
+          contentType:'application/json; charset=utf-8',
+          success:function(data){
+              if(data.hasOwnProperty("message"))
+              {
+                  alert("Evenement non ajouté")
+              }
+              else{
+                  alert("Evenement ajouté avec succes")
+                  location.reload(true)
+              }
+
+          }
+          })
+          })
+      })
+  </script>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('http://localhost/Soumaya/API/providers/Evenement/search.php?s='+localStorage.getItem("id"))
+      var calendarEl = document.getElementById('calendar');
+      var d=Date.now()
+  
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale:'fr',
+        plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+        
+        slotMinTime:"07:00:00",
+        slotMaxTime:"20:00:00",
+        editable: true,
+        aspectRatio: 1.8,
+        hiddenDays:[0],
+        slotDuration:"00:30:00",
+        nowIndicator:true,
+        scrollTime:d,
+        header: {
+          left: 'today prev,next',
+          center: 'title',
+          right: 'timeGridWeek'
+        },
+        defaultView: 'timeGridWeek',
+        events:'http://localhost/Soumaya/API/providers/Evenement/search.php?s='+localStorage.getItem("id"),
+        dateClick:function(info) {
+
+var mth=(parseInt(parseInt(new Date(info.dateStr).getMonth())) < 10 ? "0" : "") + parseInt(parseInt(new Date(info.dateStr).getMonth())+1);
+var dy=(new Date(info.dateStr).getDate() < 10 ? "0" : "") + new Date(info.dateStr).getDate();
+console.log(new Date(info.dateStr).getFullYear()+"-"+ mth+"-"+dy)
+var dt= new Date(info.dateStr).getFullYear()+"-"+ mth+"-"+dy
+var hr=(new Date(info.dateStr).getHours() < 10 ? "0" : "") + new Date(info.dateStr).getHours();
+var mn=(new Date(info.dateStr).getMinutes() < 10 ? "0" : "") + new Date(info.dateStr).getMinutes();
+var dt1=hr+":"+mn+":00"
+$("#date_add").val(dt)
+$("#hrd_add").val(dt1)
+$("#addAgentModal").modal("show")
+
+},
+eventClick:function(info){
+   
+   $("#edit_id").val(info.event.id)
+    $("#objet_edit").val(info.event.title)
+    $("#type_edit").val(info.event.extendedProps.type)
+    $("#lieu_edit").val(info.event.extendedProps.lieu)
+    var date=new Date(info.event.start)
+    var mth=(parseInt(date.getMonth()) < 10 ? "0" : "") + parseInt(parseInt(date.getMonth())+1);
+var dy=(date.getDate() < 10 ? "0" : "") + date.getDate();
+
+var dt= date.getFullYear()+"-"+ mth+"-"+dy
+    $("#date_edit").val(dt)
+    var hr=(date.getHours() < 10 ? "0" : "") + date.getHours();
+var mn=(date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
+var dt1=hr+":"+mn+":00"
+    $("#hrd_edit").val(dt1)
+    var date1=new Date(info.event.end)
+    var hr1=(date1.getHours() < 10 ? "0" : "") + date1.getHours();
+var mn1=(date1.getMinutes() < 10 ? "0" : "") + date1.getMinutes();
+var dt2=hr1+":"+mn1+":00"
+    $("#hrf_edit").val(dt2)
+
+    $("#client_edit").val(info.event.extendedProps.client_id)
+
+    $("#editAgentModal").modal("show");
+    }
+        
+      });
+  
+      calendar.render();
+    });
+  
+  </script>
+    <style>
+      .modal .modal-dialog {
+            max-width: 400px;
+        }
+        .modal .modal-header, .modal .modal-body, .modal .modal-footer {
+            padding: 20px 30px;
+        }
+        .modal .modal-content {
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        .modal .modal-footer {
+            background: #ecf0f1;
+            border-radius: 0 0 3px 3px;
+        }
+        .modal .modal-title {
+            display: inline-block;
+        }
+        .modal .form-control {
+            border-radius: 2px;
+            box-shadow: none;
+            border-color: #dddddd;
+        }
+        .modal textarea.form-control {
+            resize: vertical;
+        }
+        .modal .btn {
+            border-radius: 2px;
+            min-width: 100px;
+        }	
+        .modal form label {
+            font-weight: normal;
+        }	
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Gestion de la relation client</a>     
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+        <a  id ="decnx" class="nav-link" href="#">Déconnexion</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+             
+              <li class="nav-item">
+                <a class="nav-link" href="affaires.html">
+                  <span><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></span>
+                  Affaires
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="taches.html">
+                  <span><i class="fa fa-tasks fa-2x" aria-hidden="true"></i></span>
+                  Taches
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Agent.html">
+                  <span><i class="fa fa-user fa-2x" aria-hidden="true"></i></span>
+                  Agents
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">
+                  <span><i class="fa fa-address-book fa-2x" aria-hidden="true"></i></span>
+                   Contacts
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="clients.html">
+                  <span><i class="fa fa-users fa-2x" aria-hidden="true"></i></span>
+                  Clients
+                </a>
+              </li>
+             
+              <li class="nav-item">
+                <a class="nav-link" href="events.html">
+                  <span><i class="fa fa-calendar fa-2x" aria-hidden="true"></i></span>
+                  Evènements
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Rapports</span>
+              <a class="d-flex align-items-center text-muted" href="#">                
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="rap1.html">
+                  <span data-feather="activity"></span>
+                  Réalisé / Objectif
+                </a>
+              </li>
+              
+            </ul>
+          </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Agenda</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              
+            </div>
+          </div> 
+          
+          
+          <div id='calendar'></div>
+          
+        </main>
+        
+      </div>
+</div>
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+
+    <!-- Graphs -->			
+			
+	 <!-- Add Modal HTML-->
+<div id="addAgentModal" class="modal  fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="needs-validation" id="frm_add" novalidate>
+				<div class="modal-header">						
+					<h4 class="modal-title">Ajout d'un évènement</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-1">
+                          <div class="form-group">
+                            <label>Objet</label>
+                            <input type="text" class="form-control" id="objet_add" name="objet_add" required>
+                           
+                          </div>
+                          </div>
+                          
+                      </div>
+                    <div class="row">
+            <div class="col-md-6 mb-1">
+              <div class="form-group">
+                <label>Type</label>
+               
+                <select class="form-control" id="type_add" name="type_add" required>
+                    <option value="Formation">Formation</option>
+                    <option value="Rendez-vous">Rendez-vous</option>
+                    <option value="Réunion">Réunion</option>
+                </select>
+              </div>
+              </div>
+              <div class="col-md-6 mb-1">
+                <div class="form-group">
+                  <label>Lieu</label>
+                  <input type="text" class="form-control" id="lieu_add" name="lieu_add" required>
+                </div>
+              </div>
+          </div>	
+          <!--date-->
+          <div class="row">
+            <div class="col-md-12 mb-1">
+              <div class="form-group">
+                <label>Date</label>               
+                <input type="date"  class="form-control" id="date_add" name="date_add" max="2300-12-31"  required>
+              </div>
+              </div>
+              
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-1">
+                <div class="form-group">
+                  <label>Heure début</label>
+                  <input type="time" class="form-control" id="hrd_add" name="hrd_add" required>
+                </div>
+              </div>
+              <div class="col-md-6 mb-1">
+                <div class="form-group">
+                  <label>Heure fin</label>
+                  <input type="time" class="form-control" id="hrf_add" name="hrf_add" required>
+                </div>
+              </div>
+          </div>	
+          <div class="row">
+            <div class="col-md-12 mb-1">
+                <select class="form-control" id="client_add" name="client_add">
+                    
+                </select>
+
+            </div>
+          </div>				
+				
+
+			
+                    
+                  
+								
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-primary" value="Ajouter" id="add_btn">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>		
+	 <!-- editModal HTML-->
+<div id="editAgentModal" class="modal  fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="needs-validation" id="frm_edit" novalidate>
+				<div class="modal-header">
+                    <input type="hidden" id="edit_id">						
+					<h4 class="modal-title">Ajout d'un évènement</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-1">
+                          <div class="form-group">
+                            <label>Objet</label>
+                            <input type="text" class="form-control" id="objet_edit" name="objet_edit" required>
+                           
+                          </div>
+                          </div>
+                          
+                      </div>
+                    <div class="row">
+            <div class="col-md-6 mb-1">
+              <div class="form-group">
+                <label>Type</label>
+               
+                <select class="form-control" id="type_edit" name="type_edit" required>
+                    <option value="Formation">Formation</option>
+                    <option value="Rendez-vous">Rendez-vous</option>
+                    <option value="Réunion">Réunion</option>
+                </select>
+              </div>
+              </div>
+              <div class="col-md-6 mb-1">
+                <div class="form-group">
+                  <label>Lieu</label>
+                  <input type="text" class="form-control" id="lieu_edit" name="lieu_edit" required>
+                </div>
+              </div>
+          </div>	
+          <!--date-->
+          <div class="row">
+            <div class="col-md-12 mb-1">
+              <div class="form-group">
+                <label>Date</label>               
+                <input type="date" placeholder="dd-mm-yyyy" class="form-control" id="date_edit" name="date_edit" max="2300-12-31" required>
+              </div>
+              </div>
+              
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-1">
+                <div class="form-group">
+                  <label>Heure début</label>
+                  <input type="time" class="form-control" id="hrd_edit" name="hrd_edit" required>
+                </div>
+              </div>
+              <div class="col-md-6 mb-1">
+                <div class="form-group">
+                  <label>Heure fin</label>
+                  <input type="time" class="form-control" id="hrf_edit" name="hrf_edit" required>
+                </div>
+              </div>
+          </div>	
+          <div class="row">
+            <div class="col-md-12 mb-1">
+                <select class="form-control" id="client_edit" name="client_edit">
+                    
+                </select>
+
+            </div>
+          </div>				
+				
+
+			
+                    
+                  
+								
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-primary" value="Enregistrer" id="mod_btn">
+                    <input type="submit" class="btn btn-danger" value="Supprimer" id="del_btn">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>	
+
+
+  </body>
+
+</html>

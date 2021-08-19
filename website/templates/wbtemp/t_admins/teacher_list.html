@@ -1,0 +1,117 @@
+{% extends 'wbtemp/t_admins/base.html' %}
+{% load static %}
+
+{% block bcumbs %}
+<li class="breadcrumb-item active">Teachers</li>
+<li class="breadcrumb-item active">All teachers</li>
+{% endblock %}
+{% block content %}
+<script>
+  function modifier(c)
+  {
+    window.location.href="http://127.0.0.1:8000/admin/teacher/"+c.user_id;
+  }
+  function supprimer(c)
+      {
+        $("#delete_id").val(c.user_id)
+        $("#fullname").html(c.first_name+" "+c.last_name)    
+        $("#deleteTeacherModal").modal("show");
+      }
+      $(document).ready(function(){
+              
+              $("#delete_btn").click(function(){
+              var id=$("#delete_id").val();
+              
+          
+            $.ajax({
+          url:'http://127.0.0.1:8000/admin/teacher/'+id+'/delete',
+          
+          dataType:'json',
+          
+          contentType:'application/json; charset=utf-8',
+          success:function(data){
+    console.log(data)
+            if(data.hasOwnProperty("message"))
+            {
+              alert("Teacher isn't deleted")
+            }else{
+              alert("Teacher is deleted succesfully");
+              location.reload(true);
+            }
+          }
+          })
+              })
+            })
+
+</script>
+         
+<table id="teacher_list">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>User name</th>
+        <th>Email</th>
+        <th>Date joined</th>
+        <th>Last login</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        
+      </tr>
+    </tfoot>
+  </table>
+
+  <script>
+    $(document).ready(function(){
+      $("#teacher_list").DataTable({    
+        "ajax": 'http://127.0.0.1:8000/admin/teacher/listj/',
+        select:true,
+        "columns": [
+                { "data": "user_id","defaultContent": "" },
+                { "data": "first_name","defaultContent": "" },
+                { "data": "last_name","defaultContent": "" },
+                { "data": "username","defaultContent": "" },
+                { "data": "email","defaultContent": "" },
+                { "data": "date_joined","defaultContent": "" },
+                { "data": "last_login","defaultContent": "" },                              
+                {
+                  data: null,
+                  className: "center",
+                  "render": function ( data, type, full, meta ) {
+                  return "<a href='#' onclick='modifier("+JSON.stringify(data)+")'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a> / <a href='#' onclick='supprimer("+JSON.stringify(data)+")' ><i class='fa fa-trash' aria-hidden='true'></i></a>"
+                  }				
+                }
+    
+    
+        ] 
+      })
+    })
+  </script>
+  <!-- Delete Modal HTML -->
+<div id="deleteTeacherModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">	
+          <input type="hidden" id="delete_id">					
+					<h4 class="modal-title">Delete teacher</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<p>Are you sure you want to delete "<b id="fullname"></b>"?</p>
+					<p class="text-warning"><small>This action cannot be undone.</small></p>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" value="Delete" id="delete_btn">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

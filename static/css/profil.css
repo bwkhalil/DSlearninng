@@ -1,0 +1,34 @@
+html,body{
+    height: 100%;
+}
+.container{
+   height: 100%;
+   align-content: center;
+}
+
+.image_outer_container{
+   margin-top: auto;
+   margin-bottom: auto;
+   border-radius: 50%;
+   position: relative;
+}
+
+
+.image_inner_container img{
+   height: 100px;
+   width: 100px;
+   border-radius: 30%;
+   border: 5px solid white;
+   
+}
+
+.image_outer_container .green_icon{
+ background-color: #4cd137;
+ position: absolute;
+ 
+ bottom: 10px;
+ height: 30px;
+ width: 30px;
+ border:5px solid white;
+ border-radius: 50%;
+}

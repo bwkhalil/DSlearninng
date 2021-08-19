@@ -1,0 +1,469 @@
+<html>
+
+<head>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link href="assets/form-validation.css" rel="stylesheet">
+  <script>
+
+$(document).ready(function(){
+    $('.login-info-box').fadeOut();
+    $('.login-show').addClass('show-log-panel');
+});
+$(document).ready(function(){
+
+$('.login-reg-panel input[type="radio"]').on('change', function() {
+    if($('#log-login-show').is(':checked')) {
+        $('.register-info-box').fadeOut(); 
+        $('.login-info-box').fadeIn();
+        
+        $('.white-panel').addClass('right-log');
+        $('.register-show').addClass('show-log-panel');
+        $('.login-show').removeClass('show-log-panel');
+        
+    }
+    else if($('#log-reg-show').is(':checked')) {
+        $('.register-info-box').fadeIn();
+        $('.login-info-box').fadeOut();
+        
+        $('.white-panel').removeClass('right-log');
+        
+        $('.login-show').addClass('show-log-panel');
+        $('.register-show').removeClass('show-log-panel');
+    }
+});
+})
+  
+
+  </script>
+  <style>
+       
+@import url('https://fonts.googleapis.com/css?family=Mukta');
+body{
+  font-family: 'Mukta', sans-serif;
+	height:100vh;
+	min-height:550px;
+	
+	background-repeat: no-repeat;
+	background-size:cover;
+	background-position:center;
+	position:relative;
+    overflow-y: hidden;
+}
+a{
+  text-decoration:none;
+  color:#444444;
+}
+.login-reg-panel{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+	text-align:center;
+    width:70%;
+	right:0;left:0;
+    margin:auto;
+    height:400px;
+    background-color: rgba(236, 48, 20, 0.9);
+}
+.white-panel{
+    background-color: rgba(255,255, 255, 1);
+    height:500px;
+    position:absolute;
+    top:-50px;
+    width:50%;
+    right:calc(50% - 50px);
+    transition:.3s ease-in-out;
+    z-index:0;
+    overflow-y: auto;
+    box-shadow: 0 0 15px 9px #00000096;
+}
+.login-reg-panel input[type="radio"]{
+    position:relative;
+    display:none;
+}
+.login-reg-panel{
+    color:#B8B8B8;
+}
+.login-reg-panel #label-login, 
+.login-reg-panel #label-register{
+    border:1px solid #9E9E9E;
+    padding:5px 5px;
+    width:150px;
+    display:block;
+    text-align:center;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight: 600;
+    font-size: 18px;
+}
+.login-info-box{
+    width:30%;
+    padding:0 50px;
+    top:20%;
+    left:0;
+    position:absolute;
+    text-align:left;
+}
+.register-info-box{
+    width:30%;
+    padding:0 50px;
+    top:20%;
+    right:0;
+    position:absolute;
+    text-align:left;
+    
+}
+.right-log{right:50px !important;}
+
+.login-show, 
+.register-show{
+    z-index: 1;
+    display:none;
+    opacity:0;
+    transition:0.3s ease-in-out;
+    color:#242424;
+    text-align:left;
+    padding:50px;
+}
+.show-log-panel{
+    display:block;
+    opacity:0.9;
+}
+/* .login-show input[type="text"], .login-show input[type="password"]{
+    width: 100%;
+    display: block;
+    margin:20px 0;
+    padding: 15px;
+    border: 1px solid #b5b5b5;
+    outline: none;
+} */
+.login-show input[type="button"] {
+    max-width: 150px;
+    width: 100%;
+    background: #444444;
+    color: #f9f9f9;
+    border: none;
+    padding: 10px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    float:right;
+    cursor:pointer;
+}
+.login-show a{
+    display:inline-block;
+    padding:10px 0;
+}
+
+/* .register-show input[type="text"], .register-show input[type="password"]{
+    width: 100%;
+    display: block;
+    margin:20px 0;
+    padding: 15px;
+    border: 1px solid #b5b5b5;
+    outline: none;
+} */
+.register-show input[type="button"] {
+    max-width: 150px;
+    width: 100%;
+    background: #444444;
+    color: #f9f9f9;
+    border: none;
+    padding: 10px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    float:right;
+    cursor:pointer;
+}
+.credit {
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    color: #3B3B25;
+    margin: 0;
+    padding: 0;
+    font-family: Arial,sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    z-index: 99;
+}
+a{
+  text-decoration:none;
+  color:#2c7715;
+}
+    
+    
+    
+  </style>
+  <script>
+    $("#login.btn").click(function(e){
+
+    })
+  </script>
+</head>
+<body>
+  <div class="login-reg-panel">
+		<div class="login-info-box">
+			<h2>Vous avez d&eacute;j&agrave; un compte?</h2>
+			
+			<label id="label-register" for="log-reg-show">S'authentifier</label>
+			<input type="radio" name="active-log-panel" id="log-reg-show"  checked="checked">
+		</div>
+							
+		<div class="register-info-box">
+			<h2>Vous n'avez pas de compte?</h2>
+			
+			<label id="label-login" for="log-login-show">S'enregistrer</label>
+			<input type="radio" name="active-log-panel" id="log-login-show">
+		</div>
+							
+		<div class="white-panel">
+			<div class="login-show">
+        <h2>S'authentifier</h2>
+        <form class="needs-validation" id="frm_lgn" novalidate>
+        
+            <input type="text" id="login_lgn" placeholder="login" class="form-control" required>
+            <div class="invalid-feedback">
+              Un nom d'utilisateur est requis.
+            </div>
+            <hr class="mb-1">
+            <input type="password" id="password_lgn" placeholder="mot de passe" class="form-control" required>     
+            <div class="invalid-feedback">
+              Un mot de passe est requis.
+            </div>    
+				
+        <hr class="mb-2">
+        
+        <button class="btn btn-primary btn-block" id="login_btn" type="submit">Login</button>
+        <a href="">Mot de passe oubli&eacute;?</a>
+        </form>
+			</div>
+			<div class="register-show">
+        <h2>S'enregistrer</h2>
+         <form class="needs-validation" id="frm_reg" novalidate>
+           <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="firstName">Pr&eacute;nom</label>
+              <input type="text" class="form-control" id="prenom" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Un pr&eacute;nom valide est requis.
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="lastName">Nom</label>
+              <input type="text" class="form-control" id="Nom" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Un nom valide est requis.
+              </div>
+            </div>
+           </div>
+           <hr class="mb-1">
+           <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="username">Login</label>
+                <input type="text" class="form-control" id="username" placeholder="Username" required>
+                <div class="invalid-feedback" style="width: 100%;">
+                  Votre nom d'utilisateur est requis.
+                </div>
+              
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="vous@exemple.com" required>
+              <div class="invalid-feedback">
+                Veuillez saisir une adresse e-mail valide.
+              </div>
+            </div>
+           </div>
+           <hr class="mb-1">
+           <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="password_reg">Mot de passe</label>
+                <input type="password" class="form-control" id="password_reg" placeholder="" required>
+                <div class="invalid-feedback" style="width: 100%;">
+                  Votre mot de passe est requis.
+                </div>
+              
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="password_confirm">Confirmation</label>
+              <input type="password" class="form-control" id="password_confirm" placeholder="" required>
+              <div class="invalid-feedback">
+                Les deux mots de passes ne sont pas conformes.
+              </div>
+            </div>
+           </div>
+           <hr class="mb-1">
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label for="address">Addresse</label>
+                <input type="text" class="form-control" id="address" placeholder="" required>
+                <div class="invalid-feedback">
+                  Veuillez saisir votre adresse.
+                </div>
+              </div>
+            </div>  
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="password_reg">T&eacute;l</label>
+                  <input type="tel" pattern="[0-9]{8}" class="form-control" id="tel" placeholder="" required>
+                  <div class="invalid-feedback" style="width: 100%;">
+                    Votre num&eacute;ro de t&eacute;l&eacute;phone est requis.
+                  </div>                
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="password_reg">Fax</label>
+                  <input type="tel" pattern="[0-9]{8}" class="form-control" id="fax" placeholder="">                                
+              </div>
+             </div>           
+            <hr class="mb-2">
+
+            
+
+            
+           
+           
+            
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Enregistrer</button>
+           
+          </form>
+        
+			
+				
+				
+			</div>
+		</div>
+	</div>
+</script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="assets/popper.min.js"></script>
+<script src="assets/bootstrap.min.js"></script>
+<script src="assets/holder.min.js"></script>
+<script>
+  (function ($) {
+	  $.each(['show', 'hide'], function (i, ev) {
+	    var el = $.fn[ev];
+	    $.fn[ev] = function () {
+	      this.trigger(ev);
+	      return el.apply(this, arguments);
+	    };
+	  });
+	})(jQuery);
+</script>
+<script>
+  $(document).ready(function(){
+    $('.login-reg-panel').on('hide', function() {
+      setTimeout(
+  function() 
+  {
+    location.replace="affaires.html"
+  }, 1700);
+                        
+});
+  })
+</script>
+<script>
+  
+  (function() {
+    'use strict';
+
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      var validation = Array.prototype.filter.call(forms, function(form) {        
+        form.addEventListener('submit', function(event) {          
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }else{
+            if(form.id=="frm_lgn")
+            {
+              event.preventDefault();
+              var login=$("#login_lgn").val();
+              var password=$("#password_lgn").val();
+              
+              $.ajax({
+                url: 'http://localhost/Soumaya/API/providers/Agent/login.php',
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({login:login,password:password}),
+                success: function (data) {
+                    if(data.hasOwnProperty("message"))
+                    {
+                      alert("Donnees incorrectes, veuillez entrer des donnees valides")
+                      
+                    }
+                    else{
+                     
+                      localStorage.setItem("id",data["id"])
+                      localStorage.setItem("nom",data["nom"])
+                      localStorage.setItem("prenom",data["prenom"])
+                      localStorage.setItem("email",data["email"])
+                      localStorage.setItem("usertype",data["usertype"])                      
+                      $(".login-reg-panel").hide(2000);
+                      
+                      
+                    }
+                }           
+              });
+            }
+            else
+            {
+              event.preventDefault();
+              var prenom=$("#prenom").val();
+              var nom=$("#Nom").val();
+              var email=$("#email").val();
+              var login=$("#username").val();
+              var password=$("#password_reg").val();
+              var adresse=$("#address").val();
+              var tel=$("#tel").val();
+              var fax=$("#fax").val();
+              console.log('http://localhost/Soumaya/API/providers/Agent/search.php?s='+login+','+email)
+              $.ajax({
+                url: 'http://localhost/Soumaya/API/providers/Agent/search.php?s='+login+','+email,
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({prenom:prenom,nom:nom,email:email,login:login,password:password,adresse:adresse,tel:tel,fax:fax}),
+                success: function (data1) {
+                  if(data1.hasOwnProperty("message"))
+              {
+              $.ajax({
+                url: 'http://localhost/Soumaya/API/providers/Agent/create.php',
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({prenom:prenom,nom:nom,email:email,login:login,password:password,adresse:adresse,tel:tel,fax:fax}),
+                success: function (data) {
+                    if(data.hasOwnProperty("message"))
+                    {
+                      alert("Erreur dans la création de votre compte, essayer une autre fois ou contacter votre administrateur")
+                      
+                    }
+                    else{
+                     
+                      alert("Compte ajouté avec succès")
+                      location.reload(true)
+                      //$(".login-reg-panel").hide(2000);
+                      
+                      
+                    }
+                }           
+              });
+              }else{
+                alert("Nom d'utilisateur ou email déjà reservé")
+              }
+            }//****
+          })}}
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>
+</body>
+
+</html>

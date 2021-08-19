@@ -1,0 +1,740 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+
+ 
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+   
+   
+  
+    <title>Gestion des affaires</title>
+  
+    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/"> -->
+
+    <!-- Bootstrap core CSS -->
+    
+    <link href="assets/form-validation.css" rel="stylesheet">
+    
+  
+    <style>
+   
+#h2o{
+  margin-bottom:50px;
+}
+
+#stats{
+  margin-bottom:50px;
+  width: 100%;
+}
+
+
+#stats td, td {
+    padding: 7px 10px;
+    border-bottom: 1px #ececec solid;
+}
+
+#stats .action {
+    text-align: right;
+}
+
+#stats .action i, table .action svg {
+    margin-right: 5px;
+}
+
+      .modal .modal-dialog {
+	max-width: 400px;
+}
+.modal .modal-header, .modal .modal-body, .modal .modal-footer {
+	padding: 20px 30px;
+}
+.modal .modal-content {
+	border-radius: 3px;
+	font-size: 14px;
+}
+.modal .modal-footer {
+	background: #ecf0f1;
+	border-radius: 0 0 3px 3px;
+}
+.modal .modal-title {
+	display: inline-block;
+}
+.modal .form-control {
+	border-radius: 2px;
+	box-shadow: none;
+	border-color: #dddddd;
+}
+.modal textarea.form-control {
+	resize: vertical;
+}
+.modal .btn {
+	border-radius: 2px;
+	min-width: 100px;
+}	
+.modal form label {
+	font-weight: normal;
+}	
+    </style>
+    <script>
+      $(document).ready(function(){
+        $("#new_btn").click(function(){
+          $("#addClientModal").modal("show");
+        })
+      })
+    </script>
+    <script>
+      $(document).ready(function(){
+       $("#date_edit").change(function(){
+
+      var date1= new Date($("#da_edit").val());
+var date2=new Date($("#date_edit").val())
+if(date2<date1)
+{
+  alert("il faut choisir une date postérieure")
+}else{
+        var Difference_In_Time = date2.getTime() - date1.getTime(); 
+  
+  // To calculate the no. of days between two dates 
+  var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+  $("#del_edit").val(Difference_In_Days)
+}
+
+       })
+      })
+    </script>
+     <script>
+      $(document).ready(function(){
+       $("#date_add").change(function(){
+var date1= new Date($("#da_add").val());
+var date2=new Date($("#date_add").val())
+if(date2<date1)
+{
+  alert("il faut choisir une date postérieure")
+}else{
+        var Difference_In_Time = date2.getTime() - date1.getTime(); 
+
+  var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+  $("#del_add").val(Difference_In_Days)
+}
+
+       })
+      })
+    </script>
+
+    <script>
+      function modifier(c)
+      {
+        $("#edit_id").val(c.id)       
+        $("#name_edit").val(c.nom)       
+        $("#eta_edit").val(c.etape);
+        $("#ori_edit").val(c.origine);
+        $("#mon_edit").val(c.montant)
+        $("#pro_edit").val(c.probabilite)
+        $("#da_edit").val(c.date_creation) 
+        $("#date_edit").val(c.date_cloture)   
+        $("#del_edit").val(c.delai)   
+        $("#client_edit").val(c.client_id)   
+            
+        $("#editClientModal").modal("show");
+      }
+      function supprimer(c)
+      {
+        $("#delete_id").val(c.id)	
+    
+        $("#deleteClientModal").modal("show");
+      }
+    </script>
+    	<script>
+        $(document).ready(function(){
+              
+          $("#delete_btn").click(function(){
+          
+          var id=$("#delete_id").val();
+          
+          var dt={id:id}
+          console.log(JSON.stringify(dt))
+            $.ajax({
+          url:'http://localhost/Soumaya/API/providers/affaire/delete.php',
+          type:'post',
+          dataType:'json',
+          data:JSON.stringify(dt),
+          contentType:'application/json; charset=utf-8',
+          success:function(data){
+    
+            if(data.hasOwnProperty("message"))
+            {
+              alert("affaire non supprimé")
+            }else{
+              alert("affaire supprimé avec suuccès");
+              location.reload(true);
+            }
+          }
+          })
+        })
+      })
+      </script>
+    
+   <script>
+     $(document).ready(function(){
+       
+      $.ajax({
+                url: 'http://localhost/Soumaya/API/providers/affaire/search.php?s='+localStorage.getItem("id"),
+                type: 'get',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                
+                success: function (data) {
+                  if(data.hasOwnProperty("message"))
+                  {
+                    $("#nbaff").html(': 0')
+                    $("#mnt_tot").html(': 0')
+                    $("#mnt_moy").html(': 0')
+                    $("#prob_moy").html(': 0')
+                    $("#mnt").html(': 0')
+                    $("#delai_moy").html(': 0')
+                  }
+                  else
+                  {
+                    var mnt=0;
+                    var delai=0;
+                    var prob=0;
+                    var nb=data["records"].length
+                    data["records"].forEach(element => {
+                      mnt+=parseFloat(element["montant"])
+                      delai+=parseInt(element["delai"])
+                      prob+=parseInt(element["probabilite"])                      
+                    });
+                    $("#nbaff").html(': '+nb)
+                    $("#mnt_tot").html(': '+mnt)
+                    $("#mnt_moy").html(': '+(mnt/nb))
+                    $("#prob_moy").html(': '+(prob/nb))
+                    $("#mnt").html(': 0')
+                    $("#delai_moy").html(': '+(delai/nb))
+                  }
+                }
+      })
+     })
+   </script>
+    <script>
+      $(document).ready(function(){
+       $.ajax({
+           url:'http://localhost/Soumaya/API/providers/client/read.php',
+           type:'get',
+           dataType:'json',  
+           contentType:'application/json; charset=utf-8',
+           success:function(data){
+             var liste=JSON.stringify(data)
+             data["data"].forEach(element => {
+               $("#client_add").append(new Option(element["nom"],element["id"])) 
+               $("#client_edit").append(new Option(element["nom"],element["id"]))              
+             });
+           }
+       })
+      })
+    </script>
+    <script>
+      $("#decnx").click(function(e){
+        e.preventDefault();
+        localStorage.removeItem("id")
+        location.replace("login.html")
+      })
+    </script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Gestion de la relation client</a>     
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+        <a  id ="decnx" class="nav-link" href="#">Déconnexion</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+             
+              <li class="nav-item">
+                <a class="nav-link" href="affaires.html">
+                  <span><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></span>
+                  Affaires
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="taches.html">
+                  <span><i class="fa fa-tasks fa-2x" aria-hidden="true"></i></span>
+                  Taches
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Agent.html">
+                  <span><i class="fa fa-user fa-2x" aria-hidden="true"></i></span>
+                  Agents
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">
+                  <span><i class="fa fa-address-book fa-2x" aria-hidden="true"></i></span>
+                   Contacts
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="clients.html">
+                  <span><i class="fa fa-users fa-2x" aria-hidden="true"></i></span>
+                  Clients
+                </a>
+              </li>
+             
+              <li class="nav-item">
+                <a class="nav-link" href="events.html">
+                  <span><i class="fa fa-calendar fa-2x" aria-hidden="true"></i></span>
+                  Evènements
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Rapports</span>
+              <a class="d-flex align-items-center text-muted" href="#">                
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="rap1.html">
+                  <span data-feather="activity"></span>
+                  Réalisé / Objectif
+                </a>
+              </li>
+              
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Gestion des affaires</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button  class="btn btn-sm btn-outline-secondary"  id="new_btn"><i class="fa fa-address-book"></i> Créer</button>                
+              </div>
+            </div>
+          </div> 
+          <table id="stats">
+            <tbody>
+              <tr>
+                <td>
+                    Nombre d'affaires
+                </td>
+                <td>
+                    <strong id="nbaff"></strong>
+                </td>
+                <td>
+                    Montant total
+                </td>
+                <td>
+                    <strong id="mnt_tot"></strong>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    Montant moyen
+                </td>
+                <td>
+                    <strong id="mnt_moy"></strong>
+                </td>
+                <td>
+                    Probabilité moyenne
+                </td>
+                <td>
+                    <strong id="prob_moy"></strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Montant prévisionnel
+                </td>
+                <td>
+                    <strong id="mnt"></strong>
+                </td>
+                <td>
+                    Délais moyen
+                </td>
+                <td>
+                    <strong id="delai_moy"></strong>
+                </td>
+            </tr>            
+        </tbody>
+      </table>
+     
+          <h2 id="h2o">Liste des affaires</h2>          
+          <table id="client_list">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nom</th>
+                  <th>Etape</th>
+                  <th>Origine</th>
+                  <th>Montant</th>
+                  <th>Probab%</th>
+                  <th>Date creat</th>
+                  <th>Date clôture</th>
+                  <th>Delai</th>
+                  <th>Client</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>ID</th>
+                  <th>Nom</th>
+                  <th>Etape</th>
+                  <th>Origine</th>
+                  <th>Montant</th>
+                  <th>Probab%</th>
+                  <th>Date creat</th>
+                  <th>Date clôture</th>
+                  <th>Delai</th>
+                  <th>Client</th>
+                  <th>Actions</th>
+                </tr>
+              </tfoot>
+            </table>
+          
+        </main>
+        
+      </div>
+    </div>
+
+    
+    
+    
+
+    
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+
+    <!-- Graphs -->
+
+
+    <script>
+      $(document).ready(function(){
+        $("#client_list").DataTable({    
+          "ajax": 'http://localhost/Soumaya/API/providers/affaire/read.php',
+          select:true,
+          "columns": [
+                  { "data": "id" },
+                  { "data": "nom" },
+                  { "data": "etape" },
+                  { "data": "origine" },
+                  { "data": "montant" },
+                  { "data": "probabilite" },
+                  { "data": "date_creation" },     
+                  { "data": "date_cloture" },       
+                  { "data": "delai" },       
+                  { "data": "client" },       
+                               
+                  {
+                    data: null,
+                    className: "center",
+                    "render": function ( data, type, full, meta ) {
+                    return "<a href='#' onclick='modifier("+JSON.stringify(data)+")'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a> / <a href='#' onclick='supprimer("+JSON.stringify(data)+")' ><i class='fa fa-trash' aria-hidden='true'></i></a>"
+                    }				
+                  }
+			
+			
+          ] 
+        })
+      })
+  </script>
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- Add Modal HTML-->
+<div id="addClientModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="frm_add" class="needs-validation">
+				<div class="modal-header">						
+					<h4 class="modal-title">Ajouter une affaire</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<div class="form-group">
+						<label>Nom</label>
+						<input type="text" class="form-control" id="name_add" name="name_add" required>
+          </div>
+          <div class="form-group">
+						<label>Etape</label>
+            
+            <select id="eta_add" name="eta_add" class="form-control" required>
+             
+              <option value="Affaire conclue">Affaire conclue</option>
+              <option value="Affaire perdue">Affaire perdue</option>
+              <option value="En négociation">En négociation</option>
+              
+              </select>
+          </div>
+          <div class="form-group">
+						<label>Origine</label>
+            
+            <select class="form-control" id="ori_add" name="ori_add" required>             
+              <option value="Bouche à oreille">Bouche à oreille</option>   
+              <option value="Publicité">Publicité</option>
+              <option value="Recommandation">Recommandation</option>              
+              <option value="Site Internet">Site Internet</option>
+          </select>
+          </div>
+          <div class="form-group">
+						<label>Montant </label>
+						<input type="number" class="form-control" id="mon_add" name="mon_add" required>
+					</div>
+					<div class="form-group">
+						<label>Probabilite</label>
+            
+            <select class="form-control" id="pro_add" name="pro_add"  required>             
+                  <option value="20">20 % - Faible</option>
+                  <option value="50">50 % - Moyenne</option>
+                  <option value="80">80 % - Forte</option>
+                  <option value="100">100 % - Affaire conclue</option>
+          </select>
+					</div>
+					<div class="form-group">
+						<label>Date Creation</label>
+						<input type="date" class="form-control" id="da_add" name="da_add"  required></input>
+					</div>
+          <div class="form-group">
+						<label>Date Cloture</label>
+						<input type="date" class="form-control" id="date_add" name="date_add"  required></input>
+          </div>
+          <div class="form-group">
+						<label>Delai </label>
+						<input type="number" class="form-control" id="del_add" name="del_add"  disabled></input>
+          </div>
+          <div class="form-group">
+					<label>Client</label>
+            
+            <select class="form-control" id="client_add" name="client_add" required>
+            </select>
+          </div>
+         
+          
+          
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Ajouter" id="add_btn">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editClientModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="frm_edit" class="needs-validation">
+				<div class="modal-header">	
+          <input type="hidden" id="edit_id">					
+					<h4 class="modal-title">Edit Employee</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+          <div class="form-group">
+						<label>Nom</label>
+						<input type="text" class="form-control" id="name_edit" name="name_edit" required>
+          </div>
+          <div class="form-group">
+						<label>Etape</label>
+            <select id="eta_edit" name="eta_edit" class="form-control" required>
+             
+              <option value="Affaire conclue">Affaire conclue</option>
+              <option value="Affaire perdue">Affaire perdue</option>
+              <option value="En négociation">En négociation</option>
+              
+              </select>
+          </div>
+          <div class="form-group">
+						<label>Origine</label>            
+            <select class="form-control" id="ori_edit" name="ori_edit" required>             
+              <option value="Bouche à oreille">Bouche à oreille</option>   
+              <option value="Publicité">Publicité</option>
+              <option value="Recommandation">Recommandation</option>              
+              <option value="Site Internet">Site Internet</option>
+          </select>
+          </div>
+          <div class="form-group">
+						<label>Montant </label>
+						<input type="number" class="form-control" id="mon_edit" name="mon_edit" required>
+					</div>
+					<div class="form-group">
+						<label>Probabilite</label>    
+            <select  class="form-control" id="pro_edit" name="pro_edit"  required>             
+              <option value="20">20 % - Faible</option>
+              <option value="50">50 % - Moyenne</option>
+              <option value="80">80 % - Forte</option>
+              <option value="100">100 % - Affaire conclue</option>
+      </select>
+					</div>
+					<div class="form-group">
+						<label>Date Creation</label>
+						<input type="date" class="form-control" id="da_edit" name="da_edit"  required></input>
+					</div>
+          <div class="form-group">
+						<label>Date Cloture</label>
+						<input type="date" class="form-control" id="date_edit" name="date_edit"  required></input>
+          </div>
+          <div class="form-group">
+						<label>Delai </label>
+						<input type="number" class="form-control" id="del_edit" name="del_edit"  disabled></input>
+          </div>
+          <div class="form-group">
+					<label>Client</label>
+           
+            <select class="form-control" id="client_edit" name="client_edit" required>
+            </select>
+          </div>
+         
+          
+          
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Enregistrer" id="edit_btn">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteClientModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">	
+          <input type="hidden" id="delete_id">					
+					<h4 class="modal-title">Supprimer Affaire</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<p>Voulez-vous vraiment supprimer ces enregistrements?</p>
+					<p class="text-warning"><small>Cette action ne peut pas être annulée.</small></p>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" value="Delete" id="delete_btn">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+  
+  (function() {
+    'use strict';
+
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        
+        form.addEventListener('submit', function(event) {
+          
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }else{
+            if(form.id=="frm_edit")
+            {
+              event.preventDefault();
+              var id=$("#edit_id").val() 
+              var name=$("#name_edit").val()       
+              var fax=$("#eta_edit").val();
+              var web=$("#ori_edit").val();
+              var adr=$("#mon_edit").val()
+              var mail=$("#pro_edit").val()
+              var tel=$("#da_edit").val() 
+              var date=$("#date_edit").val()
+              var del=$("#del_edit").val()
+              var cli=$("#client_edit").val()
+              var age=localStorage.getItem("id")
+              var dt={id:id,nom:name,etape:fax,origine:web,montant:adr,probabilite:mail,date_creation:tel,date_cloture:date,delai:del,client_id:cli,agent_id:age}
+              console.log(JSON.stringify(dt))
+            $.ajax({
+          url:'http://localhost/Soumaya/API/providers/affaire/update.php',
+          type:'post',
+          dataType:'json',
+          data:JSON.stringify(dt),
+          contentType:'application/json; charset=utf-8',
+          success:function(data){
+            if(data.hasOwnProperty("message"))
+            {
+              alert("affaire non modifié")
+            }else{
+              alert("affaire modifié avec suuccès");
+              location.reload(true);
+            }
+    
+    
+          }
+          })
+              
+            }else{
+              event.preventDefault();
+          var name=$("#name_add").val()       
+        var fax=$("#eta_add").val();
+        var web=$("#ori_add").val();
+        var adr=$("#mon_add").val()
+        var mail=$("#pro_add").val()
+        var tel=$("#da_add").val() 
+        var date=$("#date_add").val()
+        var del=$("#del_add").val()
+        var cli=$("#client_add").val()
+        var age=localStorage.getItem("id")
+        var dt={nom:name,etape:fax,origine:web,montant:adr,probabilite:mail,date_creation:tel,date_cloture:date,delai:del,client_id:cli,agent_id:age}
+          console.log(JSON.stringify(dt))
+            $.ajax({
+          url:'http://localhost/Soumaya/API/providers/affaire/create.php',
+          type:'POST',
+          dataType:'json',
+          data:JSON.stringify(dt),
+          contentType:'application/json; charset=utf-8',
+          success:function(data){
+            if(data.hasOwnProperty("message"))
+            {
+              alert("affaire non ajouté")
+            }else{
+              alert("affaire ajouté avec suuccès");
+              //location.reload(true);
+            }
+    
+    
+          }
+          })  
+
+            }
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>
+
+  </body>
+
+</html>

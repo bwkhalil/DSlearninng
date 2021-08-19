@@ -1,0 +1,141 @@
+{% extends 'wbtemp/t_teachers/base.html' %}
+{% load static %}
+{% block bcumbs %}
+<li class="breadcrumb-item active">Course</li>
+<li class="breadcrumb-item active">My Courses</li>
+{% endblock %}
+{% block content %}
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/custom.css" rel="stylesheet" /> -->
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <button class="btn btn-primary" id="AddPerson"><i class="fas fa-plus"></i></button>
+   <form id="formita" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+      <table class="table" id="myTable">
+        <thead>
+          <tr>
+            <th width="30px"></th>
+            <th width="90">N°</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>File</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="template" style="display: none">
+            <td><input type="hidden" class="form-control"  name="hnm"/></td>
+            <td><input type="text" class="form-control"  name="num" disabled/></td>
+            <td><input type="text" class="form-control"  name="name"  /></td>
+            <td><input type="text" class="form-control"  name="description" /></td>
+           
+            <td><input type="file" class="form-control"  name="file" /></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="form-group">
+        <div class="class-sm-12 text-right">
+          <button type="submit" class="btn btn-success" id="sub">Add Chapters</button>
+        </div>
+      </div>
+
+    </form>
+
+ 
+
+ 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+var row = 1;
+$(function() {
+  $('#AddPerson').click(function(e) {
+    e.preventDefault();
+    $('#template').find('input[name^="num"]').each(function (){
+      $x=$(this)
+      $x.val(row)
+    } )
+    var template = $('#template')
+      .clone()                        // CLONE THE TEMPLATE
+      .attr('id', 'row' + (row++))    // MAKE THE ID UNIQUE
+      .appendTo($('#myTable tbody'))  // APPEND TO THE TABLE
+      .show();                        // SHOW IT
+  });
+});
+</script>
+
+<script>
+  $(document).ready(function(){
+    
+    $("#sub").click(function(e){
+      e.preventDefault();
+           
+      $("#myTable").find('tr').each(function () {
+        if($(this).attr("id")!="template"){
+        var num=0
+       var name=""
+       var file=null
+        var description=""
+        var fileSize = 0;
+        var formData = new FormData();
+  var fileName = "";
+  var realSize = 0;
+  var fileData = null;
+        $(this).find('input[name^="num"]').each(function () {
+           num=$(this).val()
+           alert(num)
+        });
+        $(this).find('input[name^="name"]').each(function () {
+           name=$(this).val()
+        });
+        $(this).find('input[name^="description"]').each(function () {
+           description=$(this).val()
+        });
+        var x=null
+        //alert($('input[name^="file"]').length+"---")
+        $(this).find('input[name^="file"]').each(function () {
+           file=$(this)
+           fileSize = file[0].files[0].size
+           fileName = file[0].files[0].name
+           x=$(this)[0];
+           formData = new FormData();
+          alert(this.files[0])
+          formData.append("fileData",this.files[0])
+           formData.append("name", name)
+           formData.append("num", num)
+           formData.append("description", description)
+           formData.append("csrfmiddlewaretoken", '{{ csrf_token  }}')
+           
+           formData.append("fileName", fileName)
+          
+           
+        });
+
+        $.ajax({
+                url: 'http://127.0.0.1:8000/teachers/chapters/add/'+'{{cours}}/',
+             type:'post',
+                
+                              
+                
+                data: formData,
+                processData: false,
+          contentType: false,
+          cache: false,
+                success: function (data) {
+                    if(data.hasOwnProperty("message"))
+                    {
+                      alert("Chapters are inserted successfully")
+                      
+                    }
+                    else{ 
+                    }
+                }           
+              });
+            }
+    })
+   
+  })
+})
+</script>
+
+{% endblock %}

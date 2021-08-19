@@ -1,0 +1,58 @@
+{% extends 'wbtemp/t_admins/base.html' %}
+{% load static %}
+
+{% block bcumbs %}
+<li class="breadcrumb-item active">Category</li>
+<li class="breadcrumb-item active">All Categories</li>
+{% endblock %}
+{% block content %}
+<script>
+  function modifier(c)
+  {
+    window.location.href="http://127.0.0.1:8000/admin/category/"+c.id;
+  }
+
+
+</script>
+        
+<table id="category_list">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>        
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        
+      </tr>
+    </tfoot>
+  </table>
+
+  <script>
+    $(document).ready(function(){
+      $("#category_list").DataTable({    
+        "ajax": 'http://127.0.0.1:8000/admin/category/listj/',
+        select:true,
+        "columns": [
+                { "data": "id","defaultContent": "" },
+                { "data": "name","defaultContent": "" },
+                { "data": "description","defaultContent": "" },
+                                       
+                {
+                  data: null,
+                  className: "center",
+                  "render": function ( data, type, full, meta ) {
+                    return "<a href='#' onclick='modifier("+JSON.stringify(data)+")'><i class='fa fa-edit' aria-hidden='true'></i></a>"
+                  }				
+                }
+    
+    
+        ] 
+      })
+    })
+  </script>
+{% endblock %}
+

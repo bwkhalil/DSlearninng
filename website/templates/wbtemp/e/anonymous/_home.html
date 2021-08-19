@@ -1,0 +1,537 @@
+{% load static %}
+<style>
+    .carousel .item {
+        height: 400px;
+    }
+    .item img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-height: 400px;
+    }
+    .item:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5));
+    }
+    h2 {
+        font-size: 30px;
+        line-height: 40px;
+        margin: 1em 0 0.5em 0;
+        color: #343434;
+        font-weight: normal;
+        font-family: 'Ultra', sans-serif;
+        line-height: 42px;
+        text-transform: uppercase;
+        text-shadow: 0 2px white, 0 3px #777;
+    }
+    .jumbotron {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5)), url("https://www.rospa.com/media/images/training/nebosh/method-elearning.jpg");
+        color: white;
+        text-shadow: #444 0 1px 1px;
+        background-color: transparent;
+        background-position-x: 100%;
+        height: 90vh;
+        background-size: cover;
+        width: 100%;
+        border-radius: 55;
+        
+        background-attachment: fixed;
+    }
+
+    .jumbotron .container {
+        position: relative;
+        left: 50%;
+        
+    }
+
+    .jumbotron>header {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px 10px;
+        background: inherit;
+        background-attachment: fixed;
+        overflow: hidden;
+    }
+
+    .jumbotron>header::before {
+        content: "";
+        position: absolute;
+        top: -20px;
+        left: 0;
+        width: 200%;
+        height: 200%;
+        background: inherit;
+        background-attachment: fixed;
+        -webkit-filter: blur(4px);
+        filter: blur(4px);
+    }
+
+    .jumbotron>header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.25)
+    }
+
+    .jumbotron>header>h1 {
+        margin: 0;
+        color: white;
+        position: relative;
+        z-index: 1;
+        font-weight: bold;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    @font-face {
+        font-family: 'Sketch Block';
+        src: url('http://tangledindesign.com/codepen/fonts/sketch_block-webfont.eot');
+        src: url('http://tangledindesign.com/codepen/fonts/sketch_block-webfont.eot?#iefix') format('embedded-opentype'),
+            url('http://tangledindesign.com/codepen/fonts/sketch_block-webfont.woff') format('woff'),
+            url('http://tangledindesign.com/codepen/fonts/sketch_block-webfont.ttf') format('truetype'),
+            url('http://tangledindesign.com/codepen/fonts/sketch_block-webfont.svg#SketchBlockBold') format('svg');
+    }
+
+    @font-face {
+        font-family: 'Museo 700';
+        src: url('http://tangledindesign.com/codepen/fonts/Museo700-Regular-webfont.eot');
+        src: url('http://tangledindesign.com/codepen/fonts/Museo700-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+            url('http://tangledindesign.com/codepen/fonts/Museo700-Regular-webfont.woff') format('woff'),
+            url('http://tangledindesign.com/codepen/fonts/Museo700-Regular-webfont.ttf') format('truetype'),
+            url('http://tangledindesign.com/codepen/fonts/Museo700-Regular-webfont.svg#SketchBlockBold') format('svg');
+    }
+
+    @font-face {
+        font-family: 'CallunaRegular';
+        src: url('http://tangledindesign.com/codepen/fonts/Calluna-Regular-webfont.eot');
+        src: url('http://tangledindesign.com/codepen/fonts/Calluna-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+            url('http://tangledindesign.com/codepen/fonts/Calluna-Regular-webfont.woff') format('woff'),
+            url('http://tangledindesign.com/codepen/fonts/Calluna-Regular-webfont.ttf') format('truetype'),
+            url('http://tangledindesign.com/codepen/fonts/Calluna-Regular-webfont.svg#CallunaRegular') format('svg');
+    }
+
+    body {
+        background: #fff;
+        color: #333;
+    }
+
+    .container {
+        width: 590px;
+        margin: 100px auto;
+        position: relative;
+    }
+
+    blockquote {
+        width: 565px;
+        font: 2.65em CallunaRegular;
+        letter-spacing: .075em;
+        float: left;
+        padding: 45px 0 30px 25px;
+        margin: 0;
+        border-top: 2px dotted #858585;
+        border-bottom: 2px dotted #858585;
+        -webkit-transform: rotate(-3deg);
+        -moz-transform: rotate(-3deg);
+    }
+
+    .container:before {
+        content: "“";
+        font-size: 13em;
+        position: absolute;
+        left: -100px;
+        color: #666;
+    }
+
+    .container:after {
+        content: "”";
+        font-size: 13em;
+        position: absolute;
+        right: -100px;
+        top: 150px;
+        color: #666;
+    }
+
+    blockquote:first-line {
+        font: 1.85em "Sketch Block";
+        color: #080222;
+    }
+
+    blockquote:first-letter {
+        font-size: 2.9em;
+        text-transform: lowercase;
+        float: left;
+        line-height: .52em;
+        margin-right: -18px;
+        position: relative;
+        z-index: 1;
+    }
+
+    blockquote strong:first-child {
+        margin-left: 8px;
+        letter-spacing: 0;
+    }
+
+    blockquote strong:last-child {
+        font: 2em "Museo 700";
+        text-transform: uppercase;
+        letter-spacing: 0;
+    }
+
+    blockquote em {
+        border-bottom: 2px dotted #858585;
+        padding-left: 5px;
+    }
+
+    blockquote+b {
+        float: right;
+        margin-top: 10px;
+        font: 1.6em CallunaRegular;
+        letter-spacing: .15em;
+    }
+
+    blockquote+b:first-letter {
+        color: #08041f;
+        font-size: 1.3em;
+        font-style: italic;
+        letter-spacing: .25em;
+    }
+
+    @-moz-document url-prefix() {
+
+        blockquote:first-letter {
+            margin-top: -29px;
+        }
+
+    }
+
+    body {
+        margin: 0;
+    }
+
+
+
+    #logocontainer {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 34vh;
+        height: 34vh;
+        margin-left: -17vh;
+        margin-top: -17vh;
+        overflow: hidden;
+        transition: background-color 500ms;
+        cursor: pointer;
+    }
+
+    #pelogo {
+        display: block;
+        position: absolute;
+        left: 2vh;
+        top: 2vh;
+        width: 30vh;
+        height: 30vh;
+        background: #34324b;
+        background: -moz-linear-gradient(-45deg, #34324b 0%, #161222 100%);
+        background: -webkit-linear-gradient(-45deg, #34324b 0%, #161222 100%);
+        background: linear-gradient(135deg, #34324b 0%, #161222 100%);
+        background-size: contain;
+        font-family: Trebuchet MS, sans-serif;
+        font-size: 20vh;
+        font-weight: bold;
+        color: #3ebffa;
+        text-align: center;
+        line-height: 30vh;
+    }
+
+    .loader {
+        display: block;
+        position: absolute;
+        background-color: #3ebffa;
+    }
+
+    /*Pretty complex animation, so each side needs its own @keyframes.*/
+
+    @keyframes slide1 {
+        50% {
+            width: 32vh;
+            margin-left: 0;
+        }
+
+        100% {
+            margin-left: 32vh;
+        }
+    }
+
+    @keyframes slide2 {
+        50% {
+            height: 32vh;
+            margin-top: 0;
+        }
+
+        100% {
+            margin-top: 32vh;
+        }
+    }
+
+    @keyframes slide3 {
+        50% {
+            width: 32vh;
+            margin-right: 0;
+        }
+
+        100% {
+            margin-right: 32vh;
+        }
+    }
+
+    @keyframes slide4 {
+        50% {
+            height: 32vh;
+            margin-bottom: 0
+        }
+
+        100% {
+            margin-bottom: 32vh;
+        }
+    }
+</style>
+
+<div class="row">
+    <div class="jumbotron">
+        <div id="background"></div>
+        <div id="logocontainer" onclick=fill()>
+            <div id="pelogo">DS</div>
+            <div class="loader"
+                style="left:2vh; top:0; height:2vh; width:0; animation:slide1 1s linear forwards infinite"></div>
+            <div class="loader"
+                style="right:0; top:2vh; width:2vh; height:0; animation:slide2 1s linear forwards infinite; animation-delay:0.5s">
+            </div>
+            <div class="loader"
+                style="right:2vh; bottom:0; height:2vh; width:0; animation:slide3 1s linear forwards infinite"></div>
+            <div class="loader"
+                style="left:0; bottom:2vh; width:2vh; height:0; animation:slide4 1s linear forwards infinite; animation-delay:0.5s">
+            </div>
+        </div>
+        <header>
+            <h1>
+                <center>We meets your needs sharing our knowledge with you</center>
+            </h1>
+        </header>
+
+    </div>
+</div>
+
+<div class="row">
+    <article class="container">
+
+        <blockquote>
+            <strong>DS Learning</strong> <em>was inspired, when created in 2019, to create a workplace learning
+                experience
+                that employees look forward to completing.</em>
+            <strong>We</strong><em>allow authors to create video lessons or upload PowerPoint, Word, and PDF training
+                documents.</em>
+            <strong>we</strong> <em>offers mobile companion apps so learners can manage and watch their training from
+                their
+                mobile devices.</em>
+            <strong>explore</strong> <em>below, our categories of training and our most popular courses.</em>
+        </blockquote>
+    </article>
+</div>
+<br><br><br><br>
+<center><h2>Training Categories</h2></center>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="item">
+                <img src="{% static 'img/categories/2.png'%}" alt="Chicago" style="width:100%;height: 50%;">
+                <div class="carousel-caption">
+                    <h3>Online Marketing</h3>
+                    <p>Facebook business, Shopify,...</p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'img/categories/3.png'%}" alt="New York" style="width:100%;height: 50%;">
+            <div class="carousel-caption">
+                <h3>Maths</h3>
+                <p>What we need to be Data Scientists</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'img/categories/4.png'%}" alt="Chicago" style="width:100%;height: 50%;">
+            <div class="carousel-caption">
+                <h3>Machine Learning</h3>
+                <p></p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'img/categories/5.png'%}" alt="New York" style="width:100%;height: 50%;">
+            <div class="carousel-caption">
+                <h3>Business Intelligence</h3>
+                <p></p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'img/categories/6.png'%}" alt="New York" style="width:100%;height: 50%;">
+            <div class="carousel-caption">
+                <h3>Big Data</h3>
+                <p></p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'img/categories/7.png'%}" alt="New York" style="width:100%;height: 50%;">
+            <div class="carousel-caption">
+                <h3>Software & Web Development</h3>
+                <p></p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static 'img/categories/8.png'%}" alt="New York" style="width:100%;height: 50%;">
+            <div class="carousel-caption">
+                <h3>Business Intelligence</h3>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<br><br>
+<center><h2>Most popular courses</h2></center>
+<div class="row">
+    <div class="col-lg-2">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <b><center>ML Basics</center></b>
+            </div>
+            <div class="panel-body">
+            <img alt="design" width="100%" height="100%" src="https://s.udemycdn.com/home/top-categories/lohp-category-design.jpg" class="img-responsive center-block">
+        
+        </div>
+            <div class="panel-footer"></div>
+        </div>        
+    </div>
+    <div class="col-lg-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <b>
+                    <center>Neural Networks</center>
+                </b>
+            </div>
+            <div class="panel-body">
+                <p> <img alt="design" width="100%" height="90%"
+                        src="https://s.udemycdn.com/home/top-categories/lohp-category-design.jpg"></p>
+
+            </div>
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
+    <div class="col-lg-2">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <b>
+                    <center>Python Basics</center>
+                </b>
+            </div>
+            <div class="panel-body">
+                <p> <img alt="design" width="100%" height="90%"
+                        src="https://s.udemycdn.com/home/top-categories/lohp-category-design.jpg"></p>
+
+            </div>
+        </div>        
+    </div>
+    <div class="col-lg-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <b>
+                    <center>Analytics With Python</center>
+                </b>
+            </div>
+            <div class="panel-body">
+                <p> <img alt="design" width="100%" height="90%"
+                        src="https://s.udemycdn.com/home/top-categories/lohp-category-design.jpg"></p>
+
+            </div>
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
+    <div class="col-lg-2">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <b>
+                    <center>Mastering Power BI</center>
+                </b>
+            </div>
+            <div class="panel-body">
+                <p> <img alt="design" width="100%" height="90%"
+                        src="https://s.udemycdn.com/home/top-categories/lohp-category-design.jpg"></p>
+
+            </div>
+        </div>        
+    </div>
+    <div class="col-lg-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <b>
+                    <center>Deep Learning</center>
+                </b>
+            </div>
+            <div class="panel-body">
+                <p> <img alt="design" width="100%" height="90%"
+                        src="https://s.udemycdn.com/home/top-categories/lohp-category-design.jpg"></p>
+
+            </div>
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
+</div>
+<script id="rendered-js">
+    /*
+     *   A simple loading icon based on my 
+     *   own logo that I use for reddit and
+     *   GitHub. Made entirely with CSS components
+     *   with no external resources. Click the
+     *   loader to view the original logo.
+     *
+     *   Yes, it's based on the Photoshop logo.
+     */
+
+    var full = false;
+
+    function fill() {
+        full = !full;
+        document.getElementById("logocontainer").style.backgroundColor = full ? "#3ebffa" : "transparent";
+    }
+    //# sourceURL=pen.js
+</script>
